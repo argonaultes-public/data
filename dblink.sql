@@ -24,4 +24,10 @@ SELECT * FROM dblink('db2', 'select id, email from my_users')  AS my_users(id in
 
 SELECT id FROM dblink('db2', 'select id from test_table_instance_2')  AS test_table_instance_2(id int);
 
+-- créer une vue pour simuler l'utilisation de la table sur postgres
+create view my_users as
+	SELECT * FROM dblink('db2', 'select id, email from my_users')  AS my_users(id int, email text);
+
+-- utiliser la vue comme si les données étaient locales au serveur 1
+select * from my_users;
 
